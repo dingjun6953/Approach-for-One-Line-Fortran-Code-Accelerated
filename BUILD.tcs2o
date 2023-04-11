@@ -1,0 +1,24 @@
+#!/bin/bash -x
+
+# test BLOCK_LOOP with DOT_PRODUCT (CONTIGUOUS removed)
+/opt/intel/compilers_and_libraries_2018.3.222/linux/bin/intel64/ifort -fpp -DOPENMP_VER -qopenmp -no-vec -xSSE2 -qopt-report=5 -qopt-report-file=tcs2o.optrpt.SSE2.novec -fno-inline -no-ipo tcs2o.f
+mv a.out tcs2o_SSE2_novec_20183.exe
+
+/opt/intel/compilers_and_libraries_2018.3.222/linux/bin/intel64/ifort -fpp -DOPENMP_VER -qopenmp -xSSE2 -align array16byte -qopt-report=5 -qopt-report-file=tcs2o.optrpt.SSE2.vec -fno-inline -no-ipo tcs2o.f
+mv a.out tcs2o_SSE2_vec_20183.exe
+
+/opt/intel/compilers_and_libraries_2018.3.222/linux/bin/intel64/ifort -fpp -DOPENMP_VER -qopenmp -no-vec -xcore-avx512 -qopt-report=5 -qopt-report-file=tcs2o.optrpt.AVX512.novec -fno-inline -no-ipo tcs2o.f
+mv a.out tcs2o_AVX512_novec_20183.exe
+
+/opt/intel/compilers_and_libraries_2018.3.222/linux/bin/intel64/ifort -fpp -DOPENMP_VER -qopenmp -qopt-zmm-usage=low -xcore-AVX512 -align array64byte -qopt-report=5 -qopt-report-file=tcs2o.optrpt.AVX512.low.vec -fno-inline -no-ipo tcs2o.f
+mv a.out tcs2o_AVX512_low_vec_20183.exe
+
+/opt/intel/compilers_and_libraries_2018.3.222/linux/bin/intel64/ifort -fpp -DOPENMP_VER -qopenmp -qopt-zmm-usage=high -xcore-AVX512 -align array64byte -qopt-report=5 -qopt-report-file=tcs2o.optrpt.AVX512.high.vec -fno-inline -no-ipo tcs2o.f
+mv a.out tcs2o_AVX512_high_vec_20183.exe
+
+/opt/intel/compilers_and_libraries_2018.3.222/linux/bin/intel64/ifort -fpp -DOPENMP_VER -qopenmp -xcommon-AVX512 -align array64byte -qopt-report=5 -qopt-report-file=tcs2o.optrpt.AVX512.common.vec -fno-inline -no-ipo tcs2o.f
+mv a.out tcs2o_AVX512_common_vec_20183.exe
+
+
+
+

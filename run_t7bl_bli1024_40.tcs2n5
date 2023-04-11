@@ -1,0 +1,80 @@
+#!/bin/bash -x
+
+export LD_LIBRARY_PATH=/cmg/dave/admin/2017.10-20183/linux_x64/lib
+export OMP_SCHEDULE=static,1
+
+
+
+export KMP_AFFINITY=compact,0
+
+
+# run cases corresponding to t7.f extended
+echo 4101001 01 33 33 00200000 40 64 1024 33 | tcs2n5_SSE2_novec_20183.exe > tcs2n5_SSE2_novec_csvl_4101001_01_33_33_00200000_40_64_1024_33_c0s1.out 2>&1
+cat tcs2n5_SSE2_novec_csvl_4101001_01_33_33_00200000_40_64_1024_33_c0s1.out
+
+echo 4101001 01 33 33 00200000 40 64 1024 33 | tcs2n5_SSE2_vec_20183.exe > tcs2n5_SSE2_vec_csvl_4101001_01_33_33_00200000_40_64_1024_33_c0s1.out 2>&1
+cat tcs2n5_SSE2_vec_csvl_4101001_01_33_33_00200000_40_64_1024_33_c0s1.out
+
+echo 4101001 01 33 33 00200000 40 64 1024 33 | tcs2n5_AVX512_novec_20183.exe> tcs2n5_AVX512_novec_csvl_4101001_01_33_33_00200000_40_64_1024_33_c0s1.out 2>&1
+cat tcs2n5_AVX512_novec_csvl_4101001_01_33_33_00200000_40_64_1024_33_c0s1.out
+
+echo 4101001 01 33 33 00200000 40 64 1024 33 | tcs2n5_AVX512_low_vec_20183.exe> tcs2n5_AVX512_low_vec_csvl_4101001_01_33_33_00200000_40_64_1024_33_c0s1.out 2>&1
+cat tcs2n5_AVX512_low_vec_csvl_4101001_01_33_33_00200000_40_64_1024_33_c0s1.out
+
+echo 4101001 01 33 33 00200000 40 64 1024 33 | tcs2n5_AVX512_high_vec_20183.exe> tcs2n5_AVX512_high_vec_csvl_4101001_01_33_33_00200000_40_64_1024_33_c0s1.out 2>&1
+cat tcs2n5_AVX512_high_vec_csvl_4101001_01_33_33_00200000_40_64_1024_33_c0s1.out
+
+echo 4101001 01 33 33 00200000 40 64 1024 33 | tcs2n5_AVX512_common_vec_20183.exe> tcs2n5_AVX512_common_vec_csvl_4101001_01_33_33_00200000_40_64_1024_33_c0s1.out 2>&1
+cat tcs2n5_AVX512_common_vec_csvl_4101001_01_33_33_00200000_40_64_1024_33_c0s1.out
+
+
+
+export KMP_AFFINITY=compact,1
+
+
+# run cases corresponding to t7.f extended
+echo 4101001 01 33 33 00200000 40 64 1024 33 | tcs2n5_SSE2_novec_20183.exe > tcs2n5_SSE2_novec_csvl_4101001_01_33_33_00200000_40_64_1024_33_c1s1.out 2>&1
+cat tcs2n5_SSE2_novec_csvl_4101001_01_33_33_00200000_40_64_1024_33_c1s1.out
+
+echo 4101001 01 33 33 00200000 40 64 1024 33 | tcs2n5_SSE2_vec_20183.exe > tcs2n5_SSE2_vec_csvl_4101001_01_33_33_00200000_40_64_1024_33_c1s1.out 2>&1
+cat tcs2n5_SSE2_vec_csvl_4101001_01_33_33_00200000_40_64_1024_33_c1s1.out
+
+echo 4101001 01 33 33 00200000 40 64 1024 33 | tcs2n5_AVX512_novec_20183.exe> tcs2n5_AVX512_novec_csvl_4101001_01_33_33_00200000_40_64_1024_33_c1s1.out 2>&1
+cat tcs2n5_AVX512_novec_csvl_4101001_01_33_33_00200000_40_64_1024_33_c1s1.out
+
+echo 4101001 01 33 33 00200000 40 64 1024 33 | tcs2n5_AVX512_low_vec_20183.exe> tcs2n5_AVX512_low_vec_csvl_4101001_01_33_33_00200000_40_64_1024_33_c1s1.out 2>&1
+cat tcs2n5_AVX512_low_vec_csvl_4101001_01_33_33_00200000_40_64_1024_33_c1s1.out
+
+echo 4101001 01 33 33 00200000 40 64 1024 33 | tcs2n5_AVX512_high_vec_20183.exe> tcs2n5_AVX512_high_vec_csvl_4101001_01_33_33_00200000_40_64_1024_33_c1s1.out 2>&1
+cat tcs2n5_AVX512_high_vec_csvl_4101001_01_33_33_00200000_40_64_1024_33_c1s1.out
+
+echo 4101001 01 33 33 00200000 40 64 1024 33 | tcs2n5_AVX512_common_vec_20183.exe> tcs2n5_AVX512_common_vec_csvl_4101001_01_33_33_00200000_40_64_1024_33_c1s1.out 2>&1
+cat tcs2n5_AVX512_common_vec_csvl_4101001_01_33_33_00200000_40_64_1024_33_c1s1.out
+
+
+
+
+
+
+export KMP_AFFINITY=
+
+
+# run cases corresponding to t7.f extended
+echo 4101001 01 33 33 00200000 40 64 1024 33 | tcs2n5_SSE2_novec_20183.exe > tcs2n5_SSE2_novec_csvl_4101001_01_33_33_00200000_40_64_1024_33_cdefs1.out 2>&1
+cat tcs2n5_SSE2_novec_csvl_4101001_01_33_33_00200000_40_64_1024_33_cdefs1.out
+
+echo 4101001 01 33 33 00200000 40 64 1024 33 | tcs2n5_SSE2_vec_20183.exe > tcs2n5_SSE2_vec_csvl_4101001_01_33_33_00200000_40_64_1024_33_cdefs1.out 2>&1
+cat tcs2n5_SSE2_vec_csvl_4101001_01_33_33_00200000_40_64_1024_33_cdefs1.out
+
+echo 4101001 01 33 33 00200000 40 64 1024 33 | tcs2n5_AVX512_novec_20183.exe> tcs2n5_AVX512_novec_csvl_4101001_01_33_33_00200000_40_64_1024_33_cdefs1.out 2>&1
+cat tcs2n5_AVX512_novec_csvl_4101001_01_33_33_00200000_40_64_1024_33_cdefs1.out
+
+echo 4101001 01 33 33 00200000 40 64 1024 33 | tcs2n5_AVX512_low_vec_20183.exe> tcs2n5_AVX512_low_vec_csvl_4101001_01_33_33_00200000_40_64_1024_33_cdefs1.out 2>&1
+cat tcs2n5_AVX512_low_vec_csvl_4101001_01_33_33_00200000_40_64_1024_33_cdefs1.out
+
+echo 4101001 01 33 33 00200000 40 64 1024 33 | tcs2n5_AVX512_high_vec_20183.exe> tcs2n5_AVX512_high_vec_csvl_4101001_01_33_33_00200000_40_64_1024_33_cdefs1.out 2>&1
+cat tcs2n5_AVX512_high_vec_csvl_4101001_01_33_33_00200000_40_64_1024_33_cdefs1.out
+
+echo 4101001 01 33 33 00200000 40 64 1024 33 | tcs2n5_AVX512_common_vec_20183.exe> tcs2n5_AVX512_common_vec_csvl_4101001_01_33_33_00200000_40_64_1024_33_cdefs1.out 2>&1
+cat tcs2n5_AVX512_common_vec_csvl_4101001_01_33_33_00200000_40_64_1024_33_cdefs1.out
+

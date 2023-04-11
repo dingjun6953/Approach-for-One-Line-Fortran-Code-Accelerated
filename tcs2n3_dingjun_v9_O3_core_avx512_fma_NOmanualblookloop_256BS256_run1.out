@@ -1,0 +1,12 @@
+  Input nvares, min ortho, max ortho, max ortho for bl, loops,
+  threads, array align (bytes),
+  inner and outer loop blocking factors
+        2560     4101001           1          80          20        2560
+          40          64         256         256
+  loc(adx(1))        140129566069184                     0
+  loc(vq(1,1))        140126940955328                     0
+  loc(vq(1,2))        140126973763336                     8
+ call t4...
+  tempc3 =   0.000000000000000E+000
+     diff from expected answer =  -656160160.000000     
+  time    2.52268800000000     

@@ -1,0 +1,6 @@
+Loop Blocking
+
+It is possible to treat loop blocking as strip-mining in two or more dimensions. Loop blocking is a useful technique for memory performance optimization. 
+The main purpose of loop blocking is to eliminate as many cache misses as possible. 
+This technique transforms the memory domain into smaller chunks rather than sequentially traversing through the entire memory domain.
+Each chunk should be small enough to fit all the data for a given computation into the cache, thereby maximizing data reuse.

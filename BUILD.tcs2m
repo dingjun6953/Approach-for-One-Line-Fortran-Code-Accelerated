@@ -1,0 +1,84 @@
+#!/bin/bash -x
+
+# test BLOCK_LOOP with DOT_PRODUCT (CONTIGUOUS removed)
+/opt/intel/compilers_and_libraries_2018.3.222/linux/bin/intel64/ifort -fpp -DOPENMP_VER -qopenmp -no-vec -xSSE2 -qopt-report=5 -qopt-report-file=tcs2m.optrpt.SSE2.novec -fno-inline -no-ipo tcs2m.f
+mv a.out tcs2m_SSE2_novec_20183.exe
+
+/opt/intel/compilers_and_libraries_2018.3.222/linux/bin/intel64/ifort -fpp -DOPENMP_VER -qopenmp -xSSE2 -align array16byte -qopt-report=5 -qopt-report-file=tcs2m.optrpt.SSE2.vec -fno-inline -no-ipo tcs2m.f
+mv a.out tcs2m_SSE2_vec_20183.exe
+
+/opt/intel/compilers_and_libraries_2018.3.222/linux/bin/intel64/ifort -fpp -DOPENMP_VER -qopenmp -no-vec -xcore-avx512 -qopt-report=5 -qopt-report-file=tcs2m.optrpt.AVX512.novec -fno-inline -no-ipo tcs2m.f
+mv a.out tcs2m_AVX512_novec_20183.exe
+
+/opt/intel/compilers_and_libraries_2018.3.222/linux/bin/intel64/ifort -fpp -DOPENMP_VER -qopenmp -qopt-zmm-usage=low -xcore-avx512 -align array64byte -qopt-report=5 -qopt-report-file=tcs2m.optrpt.AVX512.low.vec -fno-inline -no-ipo tcs2m.f
+mv a.out tcs2m_AVX512_low_vec_20183.exe
+
+/opt/intel/compilers_and_libraries_2018.3.222/linux/bin/intel64/ifort -fpp -DOPENMP_VER -qopenmp -qopt-zmm-usage=high -xcore-avx512 -align array64byte -qopt-report=5 -qopt-report-file=tcs2m.optrpt.AVX512.high.vec -fno-inline -no-ipo tcs2m.f
+mv a.out tcs2m_AVX512_high_vec_20183.exe
+
+/opt/intel/compilers_and_libraries_2018.3.222/linux/bin/intel64/ifort -fpp -DOPENMP_VER -qopenmp -xcommon-avx512 -align array64byte -qopt-report=5 -qopt-report-file=tcs2m.optrpt.AVX512.common.vec -fno-inline -no-ipo tcs2m.f
+mv a.out tcs2m_AVX512_common_vec_20183.exe
+
+
+#from customer
+#/opt/intel/parallel_studio_xe_2018.1.038/compilers_and_libraries_2018/linux/bin/intel64/ifort -fpp -DOPENMP_VER -qopenmp -O3 -auto -cm -w -fpp -DPN -DF95 -DLINUX -DLINUX_X64 -DOPENMP_VER -DSR3_LIB -threads -qopt-zmm-usage=low  -fpp -DOPENMP_VER -qopenmp -arch core-avx512   -align array64byte  -c avmulp.f
+
+#from customer
+#/opt/intel/parallel_studio_xe_2018.1.038/compilers_and_libraries_2018/linux/bin/intel64/ifort -fpp -DOPENMP_VER -qopenmp -O3 -auto -cm -w -fpp -DPN -DF95 -DLINUX -DLINUX_X64 -DOPENMP_VER -DSR3_LIB -threads -qopt-zmm-usage=low  -fpp -DOPENMP_VER -qopenmp -arch core-avx512   -align array64byte  -c gmresp.f
+
+
+
+
+ ifort -O3 -fpp -DOPENMP_VER -qopenmp -xCOMMON-AVX512 -align array64byte -qopt-report=5 -qopt-report-file=tcs2n.new.optrpt.common.avx512.vec -fno-inline -no-ipo -qopt-block-factor=1024 tcs2n.f -o tcs2n_O3_common_avx512.exe
+ 
+ ifort -fpp -DOPENMP_VER -qopenmp -xSSE2 -align array16byte -qopt-report=5 -qopt-report-file=tcs2n.new.optrpt.SSE2.vec -fno-inline -no-ipo -qopt-block-factor=1024 tcs2n.f -o tcs2n_O2_sse2.exe
+  
+  
+  ifort -O2 -fpp -xSSE2 -DOPENMP_VER -qopenmp  -qopt-report=5 tcs2n.f -o tcs2n_O2_xSSE2_intel.exe
+  
+  ifort -O3 -fpp -xhost -DOPENMP_VER -qopenmp  -qopt-report=5 tcs2n.f -o tcs2n_O3_xhost_intel.exe
+  
+  
+  ifort -O3 -fpp -xhost -align array64byte -DOPENMP_VER -qopenmp  -qopt-report=5 tcs2n.f -o tcs2n_O3_xhost_intel_array64byte.exe
+   
+  ifort -O3 -fpp -xhost -align array64byte -DOPENMP_VER -qopenmp  -qopt-report=5 tcs2m_intel.f -o tcs2m_O3_xhost_intel_array64byte.exe
+    
+  ifort -fpp -DOPENMP_VER -qopenmp -xSSE2 -align array16byte -qopt-report=5 -qopt-report-file=tcs2m.new.optrpt.SSE2.vec -fno-inline -no-ipo -qopt-block-factor=1024 tcs2m_ori.f -o tcs2m_O2_sse2_new.exe
+    
+   
+  ifort  -O2  -fpp -DOPENMP_VER -qopenmp -xcommon-AVX512 -align array64byte -qopt-report=5 -qopt-report-file=tcs2m.new.optrpt.AVX512.common.vec -fno-inline -no-ipo -qopt-block-factor=1024 tcs2m_ori.f   -o tcs2m_O2_common_avx512_new.exe
+  
+  ifort  -O3  -fpp -DOPENMP_VER -qopenmp -xcommon-AVX512 -align array64byte -qopt-report=5 -qopt-report-file=tcs2m.new.optrpt.AVX512.common.vec -fno-inline -no-ipo -qopt-block-factor=1024 tcs2m_ori.f   -o tcs2m_O3_common_avx512_new.exe
+  ifort  -O3  -fpp -DOPENMP_VER -qopenmp -xcommon-AVX512 -align array64byte -qopt-report=5 -qopt-report-file=tcs2m.new.optrpt.AVX512.common.vec -fno-inline -no-ipo -qopt-block-factor=1024 tcs2m_ori.f   -o tcs2m_O3_common_avx512_new.exe
+  ifort -fpp -DOPENMP_VER -qopenmp -xcommon-AVX512 -align array64byte -qopt-report=5 -qopt-report-file=tcs2m.new.optrpt.AVX512.common.vec -fno-inline -no-ipo -qopt-block-factor=1024 tcs2m_ori.f   -o tcs2m_commone_avx512_new.exe
+
+
+  ifort -fpp -DOPENMP_VER -qopenmp -xSSE2 -align array16byte -qopt-report=5 -qopt-report-file=tcs2m.new.optrpt.SSE2.vec -fno-inline -no-ipo -qopt-block-factor=1024 tcs2m_ori.f -o tcs2m_sse2_new.exe
+  ifort -fpp -DOPENMP_VER -qopenmp -xcommon-AVX512 -align array64byte -qopt-report=5 -qopt-report-file=tcs2o.optrpt.AVX512.common.vec -fno-inline -no-ipo -qopt-block-factor=1024 tcs2m_ori.f   -o tcs2m_commone_avx512_new.exe
+
+ifort -fpp -DOPENMP_VER -qopenmp -xSSE2 -align array16byte -qopt-report=5 -qopt-report-file=tcs2m.new.optrpt.SSE2.vec -fno-inline -no-ipo -qopt-block-factor=1024 tcs2m_ori.f -o tcs2m_new.exe
+ifort -O3 -fpp -xhost -DOPENMP_VER -qopenmp  -qopt-report=5 tcs2m_intel.f -o tcs2m_O3_xhost_intel.exe
+ifort -O3 -fpp -xhost -DOPENMP_VER -qopenmp  -qopt-report=5 tcs2m_intel.f -o tcs2m_O3_xhost_intel.exe
+
+
+
+ ifort -O3 -fpp -xhost -DOPENMP_VER -qopenmp  -qopt-report=5 tcs2n.f -o tcs2n_O3_xhost_v2.exe
+ ifort -O2 -fpp -xSSE2 -DOPENMP_VER -qopenmp  -qopt-report=5 tcs2n.f -o tcs2n_O2_xSSE2_v2.exe 
+ ifort -O2 -fpp -xSSE2 -DOPENMP_VER -qopenmp  -qopt-report=5 tcs2m.f -o tcs2m_O2_xSSE2.exe
+
+ ifort -O3 -fpp -xhost -DOPENMP_VER -qopenmp  -qopt-report=5 tcs2m_2.f -o tcs2m_2_O3_xhost.exe
+ ifort -O3 -fpp -xhost -DOPENMP_VER -qopenmp  -qopt-report=5 tcs2m.f -o tcs2m_O3_xhost.exe
+ ifort -O3 -fpp -xhost -DOPENMP_VER -qopenmp  -qopt-report=5 tcs2m.f -o tcs2m_O3_xhost.exe
+ 
+ ifort -O3 -fpp -xhost -DOPENMP_VER -qopenmp  -qopt-report=5 tcs2m.f -o tcs2m_O3_xhost.exe
+ ifort -O2 -fpp -xSSE2 -DOPENMP_VER -qopenmp  -qopt-report=5 tcs2n.f -o tcs2n_O2_xSSE2.exe
+  ifort -O3 -fpp -xhost -DOPENMP_VER -qopenmp  -qopt-report=5 tcs2n.f -o tcs2n_O3_xhost.exe 
+ 
+ 
+ ifort -O3 -xhost -fno-inline  -qopt-report=5 t7.f -o t7_O2_blockloop.exe
+ ifort -O3 -xhost  -qopt-report=5 t7.f -o t7_O2_blockloop.exe
+ ifort -O2 -xSSE2  -qopt-report=5 t7.f -o t7_O2_blockloop.exe
+ ifort -O2 -xhost  -qopt-report=5 t7.f -o t7_O2_blockloop.exe
+ ifort -O2 -xhost -fno-inline -qopt-report=5 t7.f -o t7_O2_noblockloop.exe
+ ifort -O2 -xhost -fno-inline -qopt-report=5 t7.f -o t7_O2_blockloop.exe
+ 

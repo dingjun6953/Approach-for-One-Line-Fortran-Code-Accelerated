@@ -1,0 +1,12 @@
+c$omp parallel
+c$omp& private(ica,itt,iloop,tempc3)
+c$omp    do schedule(runtime)
+         do ica = 1, nclass
+          do i=1,iMAX1
+               do j =iMAX2*(ica-1)+1,ica*iMAX2
+                  A(i,j) =ica*3.14159 
+                  B(i,j) =ica*ica
+               end do
+            end do
+         enddo
+c$omp    end parallel
